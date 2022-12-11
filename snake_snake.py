@@ -14,14 +14,21 @@ class Snake:
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
+        self.tail = self.segments[-1]
 
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            new_segment = Turtle("square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto(position)
-            self.segments.append(new_segment)
+            self.add_body(position)
+
+    def add_body(self, position):
+        new_segment = Turtle("square")
+        new_segment.color("white")
+        new_segment.penup()
+        new_segment.goto(position)
+        self.segments.append(new_segment)
+
+    def add_snake(self):
+        self.add_body(self.tail.pos())
 
     def move(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
@@ -45,20 +52,4 @@ class Snake:
     def left(self):
         if self.head.heading() != RIGHT:
             self.head.setheading(LEFT)
-
-    def boundaries(self):
-        # new_heading = self.head.heading() + 270
-        if self.head.xcor() > 280:
-            scoreboard.game_over()
-        # self.head.seth(new_heading)
-        elif self.head.ycor() > 280:
-            scoreboard.game_over()
-        # self.head.seth(new_heading)
-        elif self.head.xcor() < -280:
-            scoreboard.game_over()
-        # self.head.seth(new_heading)
-        elif self.head.ycor() < -280:
-            scoreboard.game_over()
-        # self.head.seth(new_heading)
-
 
